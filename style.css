@@ -33,6 +33,10 @@ body {
 	height: 10%;
 	width: 100%;
 	background-color: white;
+	/* Layout for output */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttons {

@@ -1,6 +1,24 @@
+// Select DOM elements
+const buttons = document.querySelectorAll("button");
+const screen = document.querySelector(".screen");
+
+// Init variables
 let operandRight;
 let operandLeft;
 let operator;
+
+let dummy;
+
+
+buttons.forEach(
+	function (node) {
+		node.addEventListener( "click", (event) => {
+			dummy = node.textContent;
+			screen.textContent = dummy;
+		});
+	}
+
+)
 
 function operate(operator, operandRight, operandLeft) {
 	let result;
