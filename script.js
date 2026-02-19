@@ -14,7 +14,17 @@ buttons.forEach(
 	function (node) {
 		node.addEventListener( "click", (event) => {
 			dummy = node.textContent;
-			screen.textContent = dummy;
+			switch (dummy) {
+				case "CLR":
+					screen.textContent = "";
+					break;
+				case "":
+					screen.textContent += dummy;
+					break;
+				default:
+					screen.textConten += ` ${dummy}`;
+				screen.textContent += ` ${dummy}`;
+			}
 		});
 	}
 
