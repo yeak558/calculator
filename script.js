@@ -6,7 +6,7 @@ const screen = document.querySelector(".screen");
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
-let havefirstOperand = 0;
+let isThereResult = false;
 let dummy;
 
 const operations = "+-*/";
@@ -31,8 +31,10 @@ buttons.forEach(
 				screen.textContent = ""; // For now
 			} else if (operations.includes(dummy)) {
 				return ;
-			} else if (0) {
-				pass;
+			} else if (isThereResult) {
+				screen.textContent = "";
+				isThereResult = 0;
+				screen.textContent += dummy;
 			} else if (dummy === "=") {
 				secondOperand = screen.textContent;
 				let result = operate(operator, Number(firstOperand), Number(secondOperand));
@@ -40,6 +42,7 @@ buttons.forEach(
 				screen.textContent = firstOperand;
 				operator = "";
 				secondOperand = "";
+				isThereResult = true;
 			} else {
 				screen.textContent += dummy;
 			}

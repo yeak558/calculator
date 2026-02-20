@@ -33,9 +33,10 @@ body {
 	height: 10%;
 	width: 100%;
 	background-color: white;
+	padding: 5px;
 	/* Layout for output */
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
 	align-items: center;
 }
 
