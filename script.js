@@ -3,11 +3,21 @@ const buttons = document.querySelectorAll("button");
 const screen = document.querySelector(".screen");
 
 // Init variables
-let operandFirst;
-let operandSecond;
-let operator;
+let operandFirst = "";
+let operandSecond = "";
+let operator = "";
 
 let dummy;
+
+
+/* Problems
+
+- Cant take more than 2 digit numbers
+- Cant work right after the calculation
+
+
+
+*/
 
 const operations = "+-*/";
 
@@ -16,24 +26,20 @@ buttons.forEach(
 		node.addEventListener( "click", (event) => {
 			dummy = node.textContent;
 			// Display part
-			switch (dummy) {
-				case "CLR":
-					screen.textContent = "";
-					break;
-				case "":
-					screen.textContent += dummy;
-					break;
-				default:
-					screen.textConten += ` ${dummy}`;
-					screen.textContent += ` ${dummy}`;
+			if (dummy === "CLR") {
+				screen.textContent = "";
+			} else if (operations.includes(dummy)) {
+				screen.textContent += ` ${dummy} `;
+			} else {
+				screen.textContent += `${dummy}`;
 			}
 			// Input handling part
 			if (operations.includes(dummy)) {
 				operator = dummy;
-			} else if (operandFirst === undefined) {
-				operandFirst = dummy;
-			} else if (operandSecond === undefined) {
-				operandSecond = dummy;
+			} else if (operator === "" && dummy !== "=") {
+				operandFirst += `${dummy}`;
+			} else if (operator !== "" && dummy !== "=") {
+				operandSecond += `${dummy}`;
 			} else if (dummy === "CLR"){
 				operandFirst = undefined;
 				operandSecond = undefined;
