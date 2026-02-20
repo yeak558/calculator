@@ -42,8 +42,13 @@ buttons.forEach(
 					firstOperand = "";
 					secondOperand = "";
 					operator = "";
-				} else {
+				} else if (result % 1 !== 0){
 					result = Number.parseFloat(result).toFixed(2);
+					firstOperand = `${result}`;
+					screen.textContent = firstOperand;
+					operator = "";
+					secondOperand = "";
+				} else {
 					firstOperand = `${result}`;
 					screen.textContent = firstOperand;
 					operator = "";
