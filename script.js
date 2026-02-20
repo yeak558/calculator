@@ -47,6 +47,9 @@ buttons.forEach(
 			} else {
 				let result = operate(operator, Number(operandFirst), Number(operandSecond));
 				screen.textContent = result;
+				operandFirst = `${result}`;
+				operator = "";
+				operandSecond = "";
 			}
 		});
 	}
