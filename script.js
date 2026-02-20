@@ -38,10 +38,17 @@ buttons.forEach(
 			} else if (dummy === "=") {
 				secondOperand = screen.textContent;
 				let result = operate(operator, Number(firstOperand), Number(secondOperand));
-				firstOperand = `${result}`;
-				screen.textContent = firstOperand;
-				operator = "";
-				secondOperand = "";
+				if (result === NaN) {
+					firstOperand = "";
+					secondOperand = "";
+					operator = "";
+				} else {
+					result = Number.parseFloat(result).toFixed(2);
+					firstOperand = `${result}`;
+					screen.textContent = firstOperand;
+					operator = "";
+					secondOperand = "";
+				}
 				isThereResult = true;
 			} else {
 				screen.textContent += dummy;
@@ -109,8 +116,8 @@ function multiply(a, b) {
 
 function divide(a, b) {
 	if (b === 0) {
-		console.log("Cannot divide by zero!");
-		return undefined;
+		screen.textContent = "Cannot divide by zero!";
+		return NaN;
 	}
 	return a / b;
 }
