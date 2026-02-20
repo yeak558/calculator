@@ -3,70 +3,88 @@ const buttons = document.querySelectorAll("button");
 const screen = document.querySelector(".screen");
 
 // Init variables
-let operandFirst = "";
-let operandSecond = "";
+let firstOperand = "";
+let secondOperand = "";
 let operator = "";
-
+let havefirstOperand = 0;
 let dummy;
 
 const operations = "+-*/";
 const digits = "1234567890";
+
+/* 
+	The behaviour should be same with the subject page
+
+*/
+
 
 buttons.forEach(
 	function (node) {
 		node.addEventListener( "click", (event) => {
 			dummy = node.textContent;
 			// Display part
-			if (screen.textContent === "Cannot divide by zero!") {
-				screen.textContent = "";
-			}
-			if (dummy === "CLR") {
-				clr();
-			} else if (operations.includes(dummy)) {
-				screen.textContent += ` ${dummy} `;
-			} else {
-				screen.textContent += `${dummy}`;
-			}
-			// Input handling part
 			if (dummy === "CLR") {
 				clr();
 			} else if (operations.includes(dummy) && operator === "") {
 				operator = dummy;
-			} else if (operator === "" && digits.includes(dummy)) {
-				operandFirst += `${dummy}`;
-			} else if (operator !== "" && digits.includes(dummy)) {
-				operandSecond += `${dummy}`;
+				firstOperand = screen.textContent;
+				screen.textContent = ""; // For now
+			} else if (operations.includes(dummy)) {
+				return ;
+			} else if (0) {
+				pass;
 			} else if (dummy === "=") {
-				let result = operate(operator, Number(operandFirst), Number(operandSecond));
-				if (result === undefined) {
-					screen.textContent = "Cannot divide by zero!";
-					operandFirst = "";
-				} else {
-					screen.textContent = result;
-					operandFirst = `${result}`;
-				}
+				secondOperand = screen.textContent;
+				let result = operate(operator, Number(firstOperand), Number(secondOperand));
+				firstOperand = `${result}`;
+				screen.textContent = firstOperand;
 				operator = "";
-				operandSecond = "";
+				secondOperand = "";
+			} else {
+				screen.textContent += dummy;
 			}
-		});
+		}
+		)
 	}
+);
 
-)
 
-function operate(operator, operandFirst, operandSecond) {
+			// Input handling part
+			// if (dummy === "CLR") {
+			// 	clr();
+			// } else if (operations.includes(dummy) && operator === "") {
+			// 	operator = dummy;
+			// } else if (operator === "" && digits.includes(dummy)) {
+			// 	firstOperand += `${dummy}`;
+			// } else if (operator !== "" && digits.includes(dummy)) {
+			// 	secondOperand += `${dummy}`;
+			// } else if (dummy === "=") {
+			// 	let result = operate(operator, Number(firstOperand), Number(secondOperand));
+			// 	if (result === undefined) {
+			// 		screen.textContent = "Cannot divide by zero!";
+			// 		firstOperand = "";
+			// 	} else {
+			// 		screen.textContent = result;
+			// 		firstOperand = `${result}`;
+			// 	}
+			// 	operator = "";
+			// 	secondOperand = "";
+			// }
+
+function operate(operator, firstOperand, secondOperand) {
 	let result;
 	switch (operator) {
 		case "+":
-			result = add(operandFirst, operandSecond);
+			result = add(firstOperand, secondOperand);
 			break;
 		case "-":
-			result = subtract(operandFirst, operandSecond);
+			result = subtract(firstOperand, secondOperand);
 			break;
 		case "*":
-			result = multiply(operandFirst, operandSecond);
+			result = multiply(firstOperand, secondOperand);
 			break;
 		case "/":
-			result = divide(operandFirst, operandSecond);
+			result = divide(firstOperand, secondOperand);
 			break;
 		default:
 			console.log("Undefined operator");
@@ -96,7 +114,7 @@ function divide(a, b) {
 
 function clr() {
 	screen.textContent = "";
-	operandFirst = "";
-	operandSecond = "";
+	firstOperand = "";
+	secondOperand = "";
 	operator = "";
 }
