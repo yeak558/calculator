@@ -10,6 +10,7 @@ let operator = "";
 let dummy;
 
 const operations = "+-*/";
+const digits = "1234567890";
 
 buttons.forEach(
 	function (node) {
@@ -31,9 +32,9 @@ buttons.forEach(
 				clr();
 			} else if (operations.includes(dummy) && operator === "") {
 				operator = dummy;
-			} else if (operator === "" && dummy !== "=") {
+			} else if (operator === "" && digits.includes(dummy)) {
 				operandFirst += `${dummy}`;
-			} else if (operator !== "" && dummy !== "=") {
+			} else if (operator !== "" && digits.includes(dummy)) {
 				operandSecond += `${dummy}`;
 			} else if (dummy === "=") {
 				let result = operate(operator, Number(operandFirst), Number(operandSecond));
