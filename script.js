@@ -9,16 +9,6 @@ let operator = "";
 
 let dummy;
 
-
-/* Problems
-
-- Cant take more than 2 digit numbers
-- Cant work right after the calculation
-
-
-
-*/
-
 const operations = "+-*/";
 
 buttons.forEach(
@@ -26,28 +16,34 @@ buttons.forEach(
 		node.addEventListener( "click", (event) => {
 			dummy = node.textContent;
 			// Display part
-			if (dummy === "CLR") {
+			if (screen.textContent === "Cannot divide by zero!") {
 				screen.textContent = "";
+			}
+			if (dummy === "CLR") {
+				clr();
 			} else if (operations.includes(dummy)) {
 				screen.textContent += ` ${dummy} `;
 			} else {
 				screen.textContent += `${dummy}`;
 			}
 			// Input handling part
-			if (operations.includes(dummy)) {
+			if (dummy === "CLR") {
+				clr();
+			} else if (operations.includes(dummy) && operator === "") {
 				operator = dummy;
 			} else if (operator === "" && dummy !== "=") {
 				operandFirst += `${dummy}`;
 			} else if (operator !== "" && dummy !== "=") {
 				operandSecond += `${dummy}`;
-			} else if (dummy === "CLR"){
-				operandFirst = undefined;
-				operandSecond = undefined;
-				operator = undefined;
-			} else {
+			} else if (dummy === "=") {
 				let result = operate(operator, Number(operandFirst), Number(operandSecond));
-				screen.textContent = result;
-				operandFirst = `${result}`;
+				if (result === undefined) {
+					screen.textContent = "Cannot divide by zero!";
+					operandFirst = "";
+				} else {
+					screen.textContent = result;
+					operandFirst = `${result}`;
+				}
 				operator = "";
 				operandSecond = "";
 			}
@@ -95,4 +91,11 @@ function divide(a, b) {
 		return undefined;
 	}
 	return a / b;
+}
+
+function clr() {
+	screen.textContent = "";
+	operandFirst = "";
+	operandSecond = "";
+	operator = "";
 }
